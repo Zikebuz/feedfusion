@@ -1,0 +1,373 @@
+/* Ensure full-page height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make sure content pushes footer down */
+#root, .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Main content area takes remaining space */
+main {
+    flex: 1;
+}
+
+/* Footer stays at the bottom */
+.footer {
+    background-color: #212529;
+    color: white;
+    padding: 20px 0;
+    margin-top: auto;
+}
+
+/* Animate social media icons */
+.footer-icons a {
+    transition: transform 0.3s ease-in-out;
+}
+
+.footer-icons a:hover {
+    transform: scale(1.2);
+}
+
+/* ========== News Section Styling ========== */
+
+/* Grid layout for news articles */
+.grid-view {
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(4, 300px); /* 4 columns of 300px each */
+    gap: 10px; /* Space between grid items */
+    justify-content: center; /* Center items horizontally */
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Individual news item container */
+.news-item {
+    border: 0.5px solid gray;
+    border-radius: 4px;
+    list-style-type: none;
+    padding: 10px;
+    background-color: aliceblue;
+    height: auto;
+}
+
+/* News title styling */
+.news-title {
+    list-style-type: none;
+    text-transform: capitalize;
+    display: inline-flex;
+}
+
+/* Ensure images fit inside news items */
+.news-image {
+    max-width: 100%;
+    height: auto; /* Maintain aspect ratio */
+}
+
+p img {
+    display: block; /* Makes it a block element */
+    margin: 0 auto; /* Centers it horizontally */
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 1rem !important;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Description formatting */
+.news-description {
+    margin: 10px 0;
+    text-align: left;
+    opacity: 0.8;
+    font-family: inherit;
+}
+
+/* Footer section below description */
+.news-footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px; /* Space between items */
+    margin-top: 10px;
+}
+
+
+
+  
+
+  /* Dropdown Menu */
+  .custom-dropdown {
+    background: #212529 !important; /* Slightly lighter than navbar */
+    border: none !important;
+  }
+  
+  .custom-dropdown .dropdown-item {
+    color: #fff !important;
+  }
+  
+  .custom-dropdown .dropdown-item:hover {
+    background: #3a3a3a !important;
+  }
+  /* ends */
+  
+
+/* Search Box Inside Navbar */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Default Search Box (Hidden Initially) */
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 5px;
+    transition: all 0.3s ease-in-out;
+    width: 40px; /* Initially small */
+    overflow: hidden;
+  }
+  
+  /* When Search Box is Open */
+  .search-box.open {
+    width: 400px; /* Increased width */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: #212529;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+  
+  /* Search Icon */
+  .search-box .search-icon {
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Input Field Inside Search Box */
+  .search-box .search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 14px;
+    width: 100%;
+    padding-left: 8px;
+    display: none; /* Initially hidden */
+  }
+  
+  /* Show Input Field when Box is Open */
+  .search-box.open .search-input {
+    display: block;
+  }
+  
+  
+  /* Mobile Adjustments */
+  @media (max-width: 768px) {
+    .search-box .search-input {
+      width: 0;
+    }
+    
+    .search-box.open .search-input {
+      width: 100px;
+    }
+  }
+  
+
+
+/* 🔘 Read More Button Styles */
+.read-more-btn {
+    background-color: #007bff; /* Blue background */
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.read-more-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.read-more-btn:active, 
+.active-click {
+    transform: scale(0.93); /* Shrink effect on click */
+    background-color: #004092; /* Even darker blue */
+    opacity: 0.8;
+}
+
+
+
+/* 🌍 Global Category Styles */
+
+/* Sports - Green */
+.sports {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  /* Technology - Blue */
+  .technology {
+    background-color: #000000;
+    color: white;
+  }
+  
+  /* Business - Dark Yellow */
+  .business {
+    background-color: #c4b709;
+    color: white;
+  }
+  
+  /* Health - Red */
+  .health {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* Politics - Purple */
+  .politics {
+    background-color: #6f42c1;
+    color: white;
+  }
+  
+  /* 🏷️ General News Category Styling */
+  .news-category {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 100px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    text-transform: capitalize;
+  }
+  
+
+/* Date & time styling */
+.news-date {
+    font-size: 14px;
+    color: #333;
+}
+
+
+/* ===== Contact Us Page Styles ===== */
+
+.contactus-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f4f4f9; /* Soft background for better contrast */
+    padding: 20px;
+  }
+  
+  .contactus-form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .contactus-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.3s ease-in-out;
+    font-size: 16px;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .btn-submit {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .btn-submit:hover {
+    background: #0056b3;
+  }
+  
+  .alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .alert-success {
+    background: #d4edda;
+    color: #155724;
+  }
+  
+  .alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+  }
+  
+
+
+/* Responsive Fix: Adjust spacing on small screens */
+@media (max-width: 700px) {
+    .news-footer {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+/* Responsive Grid Layout */
+@media (max-width: 1280px) {
+    .grid-view {
+        grid-template-columns: repeat(2, 300px); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 700px) {
+    .grid-view {
+        grid-template-columns: repeat(1, 300px); /* 1 column on mobile */
+    }
+}
