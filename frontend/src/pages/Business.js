@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import NewsItem from "../components/NewsItem";
 
-const appbackendUrl = process.env.APP_BACKEND_URL; // ✅ Load backend URL from .env
-
 const Business = ({ searchQuery }) => {
   const [news, setNews] = useState([]);
   const [filteredNews, setFilteredNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${appbackendUrl}/api/news/business`) // ✅ Fetch business news dynamically
+    fetch("http://localhost:5050/api/news/business") // ✅ Fetch business news
       .then((response) => response.json())
       .then((data) => {
         setNews(data);

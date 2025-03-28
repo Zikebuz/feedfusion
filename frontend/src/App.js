@@ -14,6 +14,20 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
+console.log("Navbar:", Navbar);
+console.log("Footer:", Footer);
+console.log("Home:", Home);
+console.log("Sports:", Sports);
+console.log("Technology:", Technology);
+console.log("Business:", Business);
+console.log("Health:", Health);
+console.log("Politics:", Politics);
+console.log("Contactus:", Contactus);
+console.log("Advertise:", Advertise);
+console.log("PrivacyPolicy:", PrivacyPolicy);
+
+
+
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
