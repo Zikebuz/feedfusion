@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NewsItem from "../components/NewsItem";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL; // ✅ Load backend URL from .env
+const appbackendUrl = process.env.REACT_APP_BACKEND_URL; // ✅ Load backend URL from .env
 
 const Politics = ({ searchQuery }) => {
   const [news, setNews] = useState([]);
@@ -9,7 +9,7 @@ const Politics = ({ searchQuery }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${backendUrl}/api/news/politics`) // ✅ Fetch politics news dynamically
+    fetch(`${appbackendUrl}/api/news/politics`) // ✅ Fetch politics news dynamically
       .then((response) => response.json())
       .then((data) => {
         setNews(data);

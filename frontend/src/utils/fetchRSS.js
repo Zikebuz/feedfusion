@@ -1,6 +1,6 @@
 export const fetchRSS = async () => {
   try {
-    const backendUrl = process.env.REACT_APP_BACKEND_URL; // ✅ Load backend URL dynamically
+    const backendUrl = process.env.APP_BACKEND_URL; // ✅ Load backend URL dynamically
     console.log("Fetching news from backend..."); // Debugging
 
     const response = await fetch(`${backendUrl}/api/news`);
