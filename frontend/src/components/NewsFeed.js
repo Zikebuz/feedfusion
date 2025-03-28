@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
 import NewsItem from "./NewsItem";
+import { fetchRSS } from "../utils/fetchRSS"; // ✅ Import centralized fetch function
 
 const NewsFeed = () => {
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/news")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched News:", data); // Debugging
-        setNews(data.sports || []); // Assuming we want sports news first
-      })
-      .catch((error) => console.error("Error fetching news:", error));
+    const fetchNews = async () => {
+      const data = await fetchRSS();
+      console.log("Fetched News:", data); // Debugging
+      setNews(data.sports || []); // ✅ Assuming we want sports news first
+      setLoading(false);
+    };
+
+    fetchNews();
   }, []);
 
   return (
     <div className="news-feed">
       <h1>Latest News</h1>
-      {news.length > 0 ? (
+      {loading ? (
+        <p>Loading news...</p>
+      ) : news.length > 0 ? (
         news.map((article, index) => <NewsItem key={index} article={article} />)
       ) : (
-        <p>Loading news...</p>
+        <p>No news available.</p>
       )}
     </div>
   );
