@@ -7,7 +7,7 @@ const Health = ({ searchQuery }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/news/health") // ✅ Fetch health news
+    fetch("http://localhost:5050/api/news/health") // ✅ Fetch health news
       .then((response) => response.json())
       .then((data) => {
         setNews(data);

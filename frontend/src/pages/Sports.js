@@ -7,7 +7,7 @@ const Sports = ({ searchQuery }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/news/sports") // ✅ Fetch sports news
+    fetch("http://localhost:5050/api/news/sports") // ✅ Fetch sports news
       .then((response) => response.json())
       .then((data) => {
         setNews(data);
