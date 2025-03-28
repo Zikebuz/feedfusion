@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NewsItem from "../components/NewsItem";
 
-const appbackendUrl = process.env.REACT_APP_BACKEND_URL; // ✅ Load backend URL from .env
+const appbackendUrl = process.env.APP_BACKEND_URL; // ✅ Load backend URL from .env
 
 const Politics = ({ searchQuery }) => {
   const [news, setNews] = useState([]);

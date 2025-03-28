@@ -13,12 +13,12 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   const fetchFullArticle = async (articleUrl) => {
     try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL; // ✅ Only dynamic backend URL, no default
-      if (!backendUrl) {
+      const appbackendUrl = process.env.APP_BACKEND_URL; // ✅ Only dynamic backend URL, no default
+      if (!appbackendUrl) {
         throw new Error("Backend URL is not set. Please configure REACT_APP_BACKEND_URL.");
       }
 
-      const proxyUrl = `${backendUrl}/api/proxy?url=${encodeURIComponent(articleUrl)}`;
+      const proxyUrl = `${appbackendUrl}/api/proxy?url=${encodeURIComponent(articleUrl)}`;
       const response = await fetch(proxyUrl);
 
       if (!response.ok) {
