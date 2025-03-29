@@ -65,10 +65,14 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // ✅ Final fixed social media URLs
-  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(article?.link)}`;
+  // ✅ Force the correct URL format
+  const baseUrl = "https://feedfusion.vercel.app/";
+  const formattedArticleUrl = `${baseUrl}${article?.link.replace(/^https?:\/\//, '')}`;
+
+  // ✅ Corrected Social Media Share URLs
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(formattedArticleUrl)}`;
   const tweetText = encodeURIComponent(article?.title || "Check out this news:");
-  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(article?.link)}`;
+  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(formattedArticleUrl)}`;
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
