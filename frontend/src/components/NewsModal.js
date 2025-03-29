@@ -66,9 +66,10 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // ✅ Construct a clean, shareable URL
-  const baseShareUrl = article?.link
-    ? `https://feedfusion.vercel.app/${article?.category ? `${article.category}/` : ""}${article?.link.replace(/^https?:\/\//, '')}`
+  // ✅ Construct the proper Facebook share URL using backend/meta
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "https://feedfusion.vercel.app";
+  const fbShareUrl = article?.link
+    ? `${backendUrl}/api/meta?url=${encodeURIComponent(article.link)}`
     : "https://feedfusion.vercel.app/";
 
   // ✅ Default image fallback (avoid Facebook missing image issues)
@@ -84,7 +85,7 @@ const NewsModal = ({ show, handleClose, article }) => {
         <meta property="og:image" content={articleImage} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content={baseShareUrl} />
+        <meta property="og:url" content={fbShareUrl} />
         <meta property="og:type" content="article" />
         <meta property="fb:app_id" content="61574990331253" />
       </Helmet>
@@ -112,7 +113,7 @@ const NewsModal = ({ show, handleClose, article }) => {
           {/* ✅ Social Media Share Buttons */}
           <div className="news-social-media mt-3">
             <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}&quote=${encodeURIComponent(article?.title || "")}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fbShareUrl)}&quote=${encodeURIComponent(article?.title || "")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline-primary me-2"
@@ -121,7 +122,7 @@ const NewsModal = ({ show, handleClose, article }) => {
             </a>
 
             <a
-              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(article?.link)}&text=${encodeURIComponent(article?.title || "")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline-info"
