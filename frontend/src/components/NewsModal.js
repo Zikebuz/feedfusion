@@ -71,7 +71,7 @@ const NewsModal = ({ show, handleClose, article }) => {
   };
 
   // **🔥 FIXED SHARE LINKS**
-  const baseUrl = "https://newspage.vercel.app/";
+  const baseUrl = "https://feedfusion.vercel.app/";
   const formattedArticleUrl = `${baseUrl}${article?.link.replace(/^https?:\/\//, "")}`;
 
   // ✅ FIXED FACEBOOK SHARE
