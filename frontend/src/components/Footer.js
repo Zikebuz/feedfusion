@@ -43,10 +43,10 @@ const Footer = () => {
           <div className="col-md-3 mb-3">
             <h5>Follow Us</h5>
             <div className="d-flex footer-icons">
-              <a href="https://www.facebook.com/profile.php?id=61574990331253" className="text-light me-3"><FontAwesomeIcon icon={faFacebook} size="2x" /></a>
+              <a href="https://www.facebook.com/profile.php?id=61574990331253" className="text-light me-3"><FontAwesomeIcon icon={faFacebook} size="2x" target="_blank" /></a>
               {/* <a href="#" className="text-light me-3"><FontAwesomeIcon icon={faTwitter} size="2x" /></a> */}
               {/* <a href="#" className="text-light me-3"><FontAwesomeIcon icon={faLinkedin} size="2x" /></a> */}
-              <a href="https://www.instagram.com/feedfusionnews/" className="text-light"><FontAwesomeIcon icon={faInstagram} size="2x" /></a>
+              <a href="https://www.instagram.com/feedfusionnews/" className="text-light" target="_blank"><FontAwesomeIcon icon={faInstagram} size="2x" /></a>
             </div>
           </div>
         </div>
