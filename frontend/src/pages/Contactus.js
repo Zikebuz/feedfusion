@@ -11,6 +11,8 @@ const Contactus = () => {
   const [statusMessage, setStatusMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL; // Get backend URL from .env
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -21,7 +23,7 @@ const Contactus = () => {
     setStatusMessage(null);
 
     try {
-      const response = await fetch("http://localhost:5050/api/contact", {
+      const response = await fetch(`${backendUrl}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
