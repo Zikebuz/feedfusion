@@ -30,6 +30,7 @@ const NewsModal = ({ show, handleClose, article }) => {
       const doc = parser.parseFromString(text, "text/html");
 
       let paragraphs = Array.from(doc.querySelectorAll("p")).slice(3);
+
       const unwantedPhrases = [
         "All rights reserved.",
         "may not be reproduced, published, broadcast, rewritten or redistributed",
@@ -64,9 +65,9 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // Construct correct shareable link
-  const articlePath = article?.link.replace(/^https?:\/\//, ''); 
-  const baseShareUrl = `https://feedfusion.vercel.app/${articlePath}`;
+  // Corrected baseShareUrl to ensure both Twitter & Facebook links work properly
+  const baseShareUrl = encodeURIComponent(`https://newsapp.vercel.app/${article?.link.replace(/^https?:\/\//, '')}`);
+  const tweetText = encodeURIComponent(article?.title || "Check out this news:");
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -87,31 +88,40 @@ const NewsModal = ({ show, handleClose, article }) => {
 
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
+        {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3">
-          {/* Facebook Share */}
+          {/* FACEBOOK SHARE - Opens in a pop-up */}
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${baseShareUrl}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-primary me-2"
             onClick={(e) => {
               e.preventDefault();
               window.open(
-                `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`,
-                "_blank",
-                "height=430,width=640"
+                `https://www.facebook.com/sharer/sharer.php?u=${baseShareUrl}`,
+                "facebook-share-dialog",
+                "width=640,height=430"
               );
             }}
           >
             Share on Facebook
           </a>
 
-          {/* Twitter Share */}
+          {/* TWITTER SHARE - Opens in a pop-up */}
           <a
-            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
+            href={`https://twitter.com/intent/tweet?url=${baseShareUrl}&text=${tweetText}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-info"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open(
+                `https://twitter.com/intent/tweet?url=${baseShareUrl}&text=${tweetText}`,
+                "twitter-share-dialog",
+                "width=640,height=430"
+              );
+            }}
           >
             Share on Twitter
           </a>
