@@ -97,13 +97,15 @@ const NewsModal = ({ show, handleClose, article }) => {
         {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3">
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}&quote=${encodeURIComponent(article?.title || '')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-primary me-2"
           >
             Share on Facebook
           </a>
+
+
           <a
             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
             target="_blank"
