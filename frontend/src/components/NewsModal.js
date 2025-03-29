@@ -65,10 +65,10 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // 🔥 Ensure the correct full shareable URL
-  const fullNewsUrl = `https://feedfusion.vercel.app/${article?.link.replace(/^https?:\/\//, '')}`;
-  const encodedFullNewsUrl = encodeURIComponent(fullNewsUrl);
+  // ✅ Final fixed social media URLs
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(article?.link)}`;
   const tweetText = encodeURIComponent(article?.title || "Check out this news:");
+  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(article?.link)}`;
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -89,18 +89,18 @@ const NewsModal = ({ show, handleClose, article }) => {
 
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
-        {/* Social Media Share Buttons */}
+        {/* ✅ FINAL FIXED SOCIAL MEDIA SHARE BUTTONS */}
         <div className="news-social-media mt-3">
-          {/* ✅ FACEBOOK SHARE - Now correctly appends news source URL */}
+          {/* ✅ FIXED FACEBOOK SHARE */}
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodedFullNewsUrl}`}
+            href={facebookShareUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-primary me-2"
             onClick={(e) => {
               e.preventDefault();
               window.open(
-                `https://www.facebook.com/sharer/sharer.php?u=${encodedFullNewsUrl}`,
+                facebookShareUrl,
                 "facebook-share-dialog",
                 "width=640,height=430"
               );
@@ -109,16 +109,16 @@ const NewsModal = ({ show, handleClose, article }) => {
             Share on Facebook
           </a>
 
-          {/* ✅ TWITTER SHARE - Now opens correctly in a new tab and includes full URL */}
+          {/* ✅ FIXED TWITTER SHARE */}
           <a
-            href={`https://twitter.com/intent/tweet?text=${tweetText}&url=${encodedFullNewsUrl}`}
+            href={twitterShareUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-info"
             onClick={(e) => {
               e.preventDefault();
               window.open(
-                `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodedFullNewsUrl}`,
+                twitterShareUrl,
                 "twitter-share-dialog",
                 "width=640,height=430"
               );
