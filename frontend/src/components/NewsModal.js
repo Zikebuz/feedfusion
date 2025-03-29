@@ -66,7 +66,7 @@ const NewsModal = ({ show, handleClose, article }) => {
   };
 
   // 🔥 Ensure the correct full shareable URL
-  const fullNewsUrl = `https://newsapp.vercel.app/${article?.link.replace(/^https?:\/\//, '')}`;
+  const fullNewsUrl = `https://feedfusion.vercel.app/${article?.link.replace(/^https?:\/\//, '')}`;
   const encodedFullNewsUrl = encodeURIComponent(fullNewsUrl);
   const tweetText = encodeURIComponent(article?.title || "Check out this news:");
 
