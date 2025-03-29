@@ -71,7 +71,7 @@ const NewsModal = ({ show, handleClose, article }) => {
   };
 
   // Construct shareable link
-  const baseShareUrl = `http://localhost:3000/${article?.category || "general"}/${article?.link}`;
+  const baseShareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${article?.link}`;
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
