@@ -66,7 +66,7 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   // Construct correct shareable link
   const articlePath = article?.link.replace(/^https?:\/\//, ''); 
-  const baseShareUrl = `https://newsapp.vercel.app/${articlePath}`;
+  const baseShareUrl = `https://feedfusion.vercel.app/${articlePath}`;
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
