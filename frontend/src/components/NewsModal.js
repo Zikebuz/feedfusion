@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import "../styles/style.css";
+import '../styles/style.css';
 
 const NewsModal = ({ show, handleClose, article }) => {
   const [fullContent, setFullContent] = useState("Loading full news content...");
@@ -70,21 +70,8 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // **🔥 FIXED SHARE LINKS**
-  const baseUrl = "https://feedfusion.vercel.app/";
-  const formattedArticleUrl = `${baseUrl}${article?.link.replace(/^https?:\/\//, "")}`;
-
-  // ✅ FIXED FACEBOOK SHARE
-  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(formattedArticleUrl)}`;
-
-  // ✅ FIXED TWITTER SHARE
-  const tweetText = `Check out this news on NewsPage: ${formattedArticleUrl}`;
-  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
-
-  // ✅ OPEN SHARE LINKS IN NEW WINDOW
-  const openShareWindow = (url) => {
-    window.open(url, "_blank", "width=600,height=400");
-  };
+  // Construct shareable link
+  const baseShareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${article?.link}`;
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -107,32 +94,21 @@ const NewsModal = ({ show, handleClose, article }) => {
         {/* Full News Content */}
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
-        {/* 🔥 FIXED SOCIAL MEDIA SHARE BUTTONS */}
+        {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3">
-          {/* ✅ FACEBOOK SHARE */}
           <a
-            href={facebookShareUrl}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-primary me-2"
-            onClick={(e) => {
-              e.preventDefault();
-              openShareWindow(facebookShareUrl);
-            }}
           >
             Share on Facebook
           </a>
-
-          {/* ✅ TWITTER SHARE */}
           <a
-            href={twitterShareUrl}
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-info"
-            onClick={(e) => {
-              e.preventDefault();
-              openShareWindow(twitterShareUrl);
-            }}
           >
             Share on Twitter
           </a>
