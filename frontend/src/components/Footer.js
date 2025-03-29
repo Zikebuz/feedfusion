@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="col-md-3 mb-3">
             <h5>About Us</h5>
             <p>
-              Feedsfusion is a Nigerian news aggregating site that offers up-to-date news
+              Feedfusion is a Nigerian news aggregating site that offers up-to-date news
               from reputable sources in one place.
             </p>
           </div>
