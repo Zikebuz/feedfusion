@@ -13,7 +13,7 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   const fetchFullArticle = async (articleUrl) => {
     try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL;
+      const backendUrl = process.env.REACT_APP_BACKEND_URL; // ✅ Only dynamic backend URL, no default
       if (!backendUrl) {
         throw new Error("Backend URL is not set. Please configure REACT_APP_BACKEND_URL.");
       }
@@ -29,8 +29,10 @@ const NewsModal = ({ show, handleClose, article }) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(text, "text/html");
 
+      // Extract all <p> tags for full article content
       let paragraphs = Array.from(doc.querySelectorAll("p")).slice(3);
 
+      // Unwanted phrases to remove
       const unwantedPhrases = [
         "All rights reserved.",
         "may not be reproduced, published, broadcast, rewritten or redistributed",
@@ -47,14 +49,17 @@ const NewsModal = ({ show, handleClose, article }) => {
         (p) => !unwantedPhrases.some((phrase) => p.textContent.includes(phrase))
       );
 
+      // Remove last <p> if it's empty
       if (paragraphs.length > 0 && paragraphs[paragraphs.length - 1].textContent.trim() === "") {
         paragraphs.pop();
       }
 
+      // **Remove the last paragraph from the article**
       if (paragraphs.length > 0) {
         paragraphs.pop();
       }
 
+      // Join filtered content into HTML
       const filteredContent =
         paragraphs.map((p) => `<p>${p.innerHTML}</p>`).join("") || "<p>Content not available.</p>";
 
@@ -65,12 +70,8 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // ✅ Ensure the correct shareable URL format
-  const baseShareUrl = `https://feedfusion.vercel.app/${article?.link.replace(/^https?:\/\//, "")}`;
-
-  // ✅ Debugging: Print generated share URLs to console
-  console.log("Generated Facebook URL:", `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`);
-  console.log("Generated Twitter URL:", `https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`);
+  // Construct shareable link in the correct format
+  const baseShareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${article?.link.replace(/^https?:\/\//, '')}`;
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -95,7 +96,6 @@ const NewsModal = ({ show, handleClose, article }) => {
 
         {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3">
-          {/* ✅ Facebook Share Button */}
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
             target="_blank"
@@ -104,8 +104,6 @@ const NewsModal = ({ show, handleClose, article }) => {
           >
             Share on Facebook
           </a>
-
-          {/* ✅ Twitter Share Button */}
           <a
             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
             target="_blank"
