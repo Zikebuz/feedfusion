@@ -95,26 +95,26 @@ const NewsModal = ({ show, handleClose, article }) => {
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
         {/* Social Media Share Buttons */}
-        <div className="news-social-media mt-3">
+        <div className="news-social-media mt-3 d-flex gap-2">
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}&quote=${encodeURIComponent(article?.title || '')}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-outline-primary me-2"
+            className="btn btn-outline-primary"
           >
             Share on Facebook
           </a>
 
-
           <a
-            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
+            href={`https://x.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-info"
           >
-            Share on Twitter
+            Share on X (Twitter)
           </a>
         </div>
+
       </Modal.Body>
     </Modal>
   );
