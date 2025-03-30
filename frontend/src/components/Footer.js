@@ -13,7 +13,7 @@ const Footer = () => {
             <h5>About Us</h5>
             <p>
               Feedfusion is a Nigerian news aggregating site that offers up-to-date news
-              from reputable sources in one place...
+              from reputable sources in one place
             </p>
           </div>
 
