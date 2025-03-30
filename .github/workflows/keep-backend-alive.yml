@@ -1,22 +1,22 @@
-name: Keep Backend Alive
+# name: Keep Backend Alive
 
-on:
-  schedule:
-    - cron: "*/10 * * * *"  # Runs every 10 minutes
+# on:
+#   schedule:
+#     - cron: "*/10 * * * *"  # Runs every 10 minutes
 
-  workflow_dispatch:  # Allows manual trigger from GitHub Actions
+#   workflow_dispatch:  # Allows manual trigger from GitHub Actions
 
-jobs:
-  keep-alive:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ping the backend API
-        run: |
-          curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/home
-          curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/sports
-          curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/health
-          curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/business
-          curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/technology
-          curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/politics
-          curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/contact
+# jobs:
+#   keep-alive:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Ping the backend API
+#         run: |
+#           curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/home
+#           curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/sports
+#           curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/health
+#           curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/business
+#           curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/technology
+#           curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/news/politics
+#           curl -s -o /dev/null -w "%{http_code}" https://feedfusion-6j74.onrender.com/api/contact
          
