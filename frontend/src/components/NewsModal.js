@@ -106,7 +106,7 @@ const hashtags = encodeURIComponent(article?.category ? `#${article.category}` :
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
         {/* Social Media Share Buttons */}
-        {/* <div className="news-social-media mt-3 d-flex gap-2">
+        <div className="news-social-media mt-3 d-flex gap-2">
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${baseShareUrl}`}
             target="_blank"
@@ -124,11 +124,11 @@ const hashtags = encodeURIComponent(article?.category ? `#${article.category}` :
           >
             Share on X (Twitter)
           </a>
-        </div> */}
+        </div>
 
 
 {/* Social Media Share Buttons */}
-<div className="news-social-media mt-3 d-flex gap-2">
+{/* <div className="news-social-media mt-3 d-flex gap-2">
   <a
     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
     target="_blank"
@@ -146,7 +146,7 @@ const hashtags = encodeURIComponent(article?.category ? `#${article.category}` :
   >
     Share on X (Twitter)
   </a>
-</div>
+</div> */}
 
 
       </Modal.Body>
