@@ -6,11 +6,14 @@
         "statusCode": 307
       }
     ],
-    "build": {
-      "env": {
-        "PUPPETEER_SKIP_DOWNLOAD": "true",
-        "PUPPETEER_EXECUTABLE_PATH": "/usr/bin/chromium-browser"
+    "functions": {
+      "api/*": {
+        "runtime": "nodejs20.x",
+        "memory": 512
       }
+    },
+    "env": {
+      "PUPPETEER_EXECUTABLE_PATH": "/usr/bin/chromium"
     }
   }
   

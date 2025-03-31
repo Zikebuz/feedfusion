@@ -27,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "vercel-build": "apt-get install -y libnss3 && npm run build"
+    "vercel-build": "npm run build"
   },
   "reactSnap": {
     "inlineCss": true
