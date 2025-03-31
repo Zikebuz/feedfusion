@@ -74,9 +74,14 @@ const NewsModal = ({ show, handleClose, article }) => {
   // const baseShareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${article?.link.replace(/^https?:\/\//, '')}`;
 
   // Use the original article link directly
-  const baseShareUrl = encodeURIComponent(article?.link || "");
-  const tweetText = encodeURIComponent(article?.title || "Check this out!");
-  const hashtags = encodeURIComponent(article?.category ? `#${article.category}` : "");
+  // const baseShareUrl = encodeURIComponent(article?.link || "");
+  // const tweetText = encodeURIComponent(article?.title || "Check this out!");
+  // const hashtags = encodeURIComponent(article?.category ? `${article.category}` : "");
+
+  const baseShareUrl = `https://feedfusion.vercel.app/article?url=${encodeURIComponent(article?.link || "")}`;
+const tweetText = encodeURIComponent(article?.title || "Check this out!");
+const hashtags = encodeURIComponent(article?.category ? `#${article.category}` : ""); 
+
 
 
   return (
@@ -101,7 +106,7 @@ const NewsModal = ({ show, handleClose, article }) => {
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
         {/* Social Media Share Buttons */}
-        <div className="news-social-media mt-3 d-flex gap-2">
+        {/* <div className="news-social-media mt-3 d-flex gap-2">
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${baseShareUrl}`}
             target="_blank"
@@ -119,7 +124,29 @@ const NewsModal = ({ show, handleClose, article }) => {
           >
             Share on X (Twitter)
           </a>
-        </div>
+        </div> */}
+
+
+{/* Social Media Share Buttons */}
+<div className="news-social-media mt-3 d-flex gap-2">
+  <a
+    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn btn-outline-primary"
+  >
+    Share on Facebook
+  </a>
+
+  <a
+    href={`https://x.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${tweetText}&hashtags=${hashtags}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn btn-outline-info"
+  >
+    Share on X (Twitter)
+  </a>
+</div>
 
 
       </Modal.Body>
