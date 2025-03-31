@@ -13,7 +13,7 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   const fetchFullArticle = async (articleUrl) => {
     try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL; // ✅ Only dynamic backend URL, no default
+      const backendUrl = process.env.REACT_APP_BACKEND_URL;
       if (!backendUrl) {
         throw new Error("Backend URL is not set. Please configure REACT_APP_BACKEND_URL.");
       }
@@ -29,10 +29,8 @@ const NewsModal = ({ show, handleClose, article }) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(text, "text/html");
 
-      // Extract all <p> tags for full article content
       let paragraphs = Array.from(doc.querySelectorAll("p")).slice(3);
 
-      // Unwanted phrases to remove
       const unwantedPhrases = [
         "All rights reserved.",
         "may not be reproduced, published, broadcast, rewritten or redistributed",
@@ -49,17 +47,13 @@ const NewsModal = ({ show, handleClose, article }) => {
         (p) => !unwantedPhrases.some((phrase) => p.textContent.includes(phrase))
       );
 
-      // Remove last <p> if it's empty
       if (paragraphs.length > 0 && paragraphs[paragraphs.length - 1].textContent.trim() === "") {
         paragraphs.pop();
       }
-
-      // **Remove the last paragraph from the article**
       if (paragraphs.length > 0) {
         paragraphs.pop();
       }
 
-      // Join filtered content into HTML
       const filteredContent =
         paragraphs.map((p) => `<p>${p.innerHTML}</p>`).join("") || "<p>Content not available.</p>";
 
@@ -70,10 +64,10 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // Construct shareable link with Open Graph metadata
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  const shareUrl = backendUrl
-    ? `${backendUrl}/api/news/article?title=${encodeURIComponent(article?.title || "")}&link=${encodeURIComponent(article?.link || "")}&description=${encodeURIComponent(article?.description || "")}&image=${encodeURIComponent(article?.image || "")}`
+  // Construct shareable link with frontend URL
+  const frontendUrl = "https://feedfusion.vercel.app";
+  const shareUrl = article?.link
+    ? `${frontendUrl}/article?title=${encodeURIComponent(article?.title || "")}&link=${encodeURIComponent(article?.link || "")}&description=${encodeURIComponent(article?.description || "")}&image=${encodeURIComponent(article?.image || "")}`
     : "";
 
   return (
@@ -82,7 +76,6 @@ const NewsModal = ({ show, handleClose, article }) => {
         <Modal.Title>{article?.title || "News Article"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* Article Image */}
         {article?.image && (
           <div className="text-center">
             <img
@@ -94,10 +87,8 @@ const NewsModal = ({ show, handleClose, article }) => {
           </div>
         )}
 
-        {/* Full News Content */}
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
-        {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3 d-flex gap-2">
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
