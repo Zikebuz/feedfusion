@@ -86,10 +86,13 @@ const NewsModal = ({ show, handleClose, article }) => {
   // Construct shareable link
   const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link)}`;
 
-const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(metaData.url)}`;
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(metaData.url)}`;
 
-const twitterShareUrl = `https://x.com/intent/tweet?text=&url=${encodeURIComponent(metaData.url)}`;
-
+  const twitterShareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(
+    metaData.title + " - \n" +
+    `https://feedfusion.vercel.app/${article?.category || "general"}` + "\n+ " + 
+    metaData.url
+  )}`;
 
   console.log("Facebook Share URL:", facebookShareUrl);
   console.log("Twitter Share URL:", twitterShareUrl);
