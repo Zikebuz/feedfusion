@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const xml2js = require("xml2js");
+const { JSDOM } = require("jsdom"); // Used for parsing HTML
 
 const router = express.Router();
 
@@ -73,6 +74,43 @@ router.get("/:category", async (req, res) => {
   } catch (error) {
     console.error(`Error fetching ${category} news:`, error);
     res.status(500).json({ error: `Failed to fetch ${category} news` });
+  }
+});
+
+// Route: Fetch Open Graph metadata for a given news URL
+router.get("/meta", async (req, res) => {
+  const { url } = req.query;
+
+  if (!url) {
+    return res.status(400).json({ error: "URL parameter is required" });
+  }
+
+  try {
+    const response = await axios.get(url);
+    const dom = new JSDOM(response.data);
+    const metaTags = dom.window.document.querySelectorAll("meta");
+
+    let metaData = {
+      title: "",
+      description: "",
+      image: "",
+      url: url,
+    };
+
+    metaTags.forEach((tag) => {
+      if (tag.getAttribute("property") === "og:title") {
+        metaData.title = tag.getAttribute("content");
+      } else if (tag.getAttribute("property") === "og:description") {
+        metaData.description = tag.getAttribute("content");
+      } else if (tag.getAttribute("property") === "og:image") {
+        metaData.image = tag.getAttribute("content");
+      }
+    });
+
+    res.json(metaData);
+  } catch (error) {
+    console.error("Error fetching Open Graph metadata:", error);
+    res.status(500).json({ error: "Failed to fetch metadata" });
   }
 });
 
