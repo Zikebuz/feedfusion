@@ -88,8 +88,12 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   // const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(metaData.url)}`;
 
+  // const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+  //   `https://feedfusion.vercel.app/news?source=${encodeURIComponent(metaData.url)}`
+  // )}`;
+  
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-    `https://feedfusion.vercel.app/news?source=${encodeURIComponent(metaData.url)}`
+    `https://feedfusion.vercel.app/news?source=${encodeURIComponent(metaData.url)}&title=${encodeURIComponent(metaData.title)}&image=${encodeURIComponent(metaData.image)}&description=${encodeURIComponent(metaData.description)}`
   )}`;
   
 
