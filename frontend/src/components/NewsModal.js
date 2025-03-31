@@ -88,7 +88,7 @@ const NewsModal = ({ show, handleClose, article }) => {
 
 const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(metaData.url)}`;
 
-const twitterShareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(metaData.title)}&url=${encodeURIComponent(metaData.url)}`;
+const twitterShareUrl = `https://x.com/intent/tweet?text=&url=${encodeURIComponent(metaData.url)}`;
 
 
   console.log("Facebook Share URL:", facebookShareUrl);
