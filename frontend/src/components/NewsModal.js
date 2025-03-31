@@ -78,9 +78,10 @@ const NewsModal = ({ show, handleClose, article }) => {
   // const tweetText = encodeURIComponent(article?.title || "Check this out!");
   // const hashtags = encodeURIComponent(article?.category ? `${article.category}` : "");
 
+  const previewUrl = `https://feedfusion.vercel.app/preview?url=${encodeURIComponent(article?.link)}`;
   const baseShareUrl = `https://feedfusion.vercel.app/article?url=${encodeURIComponent(article?.link || "")}`;
-const tweetText = encodeURIComponent(article?.title || "Check this out!");
-const hashtags = encodeURIComponent(article?.category ? `#${article.category}` : ""); 
+  const tweetText = encodeURIComponent(article?.title || "Check this out!");
+  const hashtags = encodeURIComponent(article?.category ? `#${article.category}` : "");
 
 
 
@@ -127,26 +128,35 @@ const hashtags = encodeURIComponent(article?.category ? `#${article.category}` :
         </div> */}
 
 
-{/* Social Media Share Buttons */}
-<div className="news-social-media mt-3 d-flex gap-2">
-  <a
+        {/* Social Media Share Buttons */}
+        <div className="news-social-media mt-3 d-flex gap-2">
+          {/* <a
     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
     target="_blank"
     rel="noopener noreferrer"
     className="btn btn-outline-primary"
   >
     Share on Facebook
-  </a>
+  </a> */}
 
-  <a
-    href={`https://x.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${tweetText}&hashtags=${hashtags}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="btn btn-outline-info"
-  >
-    Share on X (Twitter)
-  </a>
-</div>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(previewUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-primary"
+          >
+            Share on Facebook
+          </a>
+
+          <a
+            href={`https://x.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${tweetText}&hashtags=${hashtags}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-info"
+          >
+            Share on X (Twitter)
+          </a>
+        </div>
 
 
       </Modal.Body>
