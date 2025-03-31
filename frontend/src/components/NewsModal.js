@@ -71,7 +71,13 @@ const NewsModal = ({ show, handleClose, article }) => {
   };
 
   // Construct shareable link in the correct format
-  const baseShareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${article?.link.replace(/^https?:\/\//, '')}`;
+  // const baseShareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${article?.link.replace(/^https?:\/\//, '')}`;
+
+  // Use the original article link directly
+  const baseShareUrl = encodeURIComponent(article?.link || "");
+  const tweetText = encodeURIComponent(article?.title || "Check this out!");
+  const hashtags = encodeURIComponent(article?.category ? `#${article.category}` : "");
+
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -97,7 +103,7 @@ const NewsModal = ({ show, handleClose, article }) => {
         {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3 d-flex gap-2">
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${baseShareUrl}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-primary"
@@ -106,7 +112,7 @@ const NewsModal = ({ show, handleClose, article }) => {
           </a>
 
           <a
-            href={`https://x.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
+            href={`https://x.com/intent/tweet?url=${baseShareUrl}&text=${tweetText}&hashtags=${hashtags}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-info"
@@ -114,6 +120,7 @@ const NewsModal = ({ show, handleClose, article }) => {
             Share on X (Twitter)
           </a>
         </div>
+
 
       </Modal.Body>
     </Modal>
