@@ -12,7 +12,7 @@ const NewsProxy = () => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    // Delay redirect to allow Facebook to read meta tags
+    // Delay redirect to give Facebook time to read meta tags
     const timer = setTimeout(() => setRedirect(true), 5000);
     return () => clearTimeout(timer);
   }, []);
@@ -21,10 +21,15 @@ const NewsProxy = () => {
     <>
       <Helmet>
         <title>{title}</title>
+        <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={image} />
         <meta property="og:url" content={`https://feedfusion.vercel.app/news?source=${encodeURIComponent(sourceUrl)}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={image} />
       </Helmet>
       {!redirect ? <p style={{ textAlign: "center", margin: "10% auto" }}>Loading news...</p> : (window.location.href = sourceUrl)}
     </>

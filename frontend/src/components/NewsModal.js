@@ -96,6 +96,7 @@ const NewsModal = ({ show, handleClose, article }) => {
     `https://feedfusion.vercel.app/news?source=${encodeURIComponent(metaData.url)}&title=${encodeURIComponent(metaData.title)}&image=${encodeURIComponent(metaData.image)}&description=${encodeURIComponent(metaData.description)}`
   )}`;
   
+  
 
   const twitterShareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(
     metaData.title + " - \n" +
