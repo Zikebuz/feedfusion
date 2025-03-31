@@ -97,7 +97,7 @@ const NewsModal = ({ show, handleClose, article }) => {
         {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3 d-flex gap-2">
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-primary"
