@@ -85,6 +85,8 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   // Construct shareable link
   const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link.replace(/^https?:\/\//, ''))}`;
+  
+  console.log("Facebook Share URL:", shareUrl);
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
