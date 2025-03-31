@@ -86,7 +86,7 @@ router.get("/meta", async (req, res) => {
   }
 
   try {
-    // Add headers to mimic a real browser request
+    // Use headers to mimic a real browser request
     const response = await axios.get(url, {
       headers: {
         "User-Agent":
@@ -113,6 +113,9 @@ router.get("/meta", async (req, res) => {
         metaData.image = tag.getAttribute("content");
       }
     });
+
+    // ✅ Append full FeedFusion share URL for correct previews
+    metaData.url = `https://feedfusion.vercel.app/${req.query.category || "general"}/${encodeURIComponent(url)}`;
 
     res.json(metaData);
   } catch (error) {
