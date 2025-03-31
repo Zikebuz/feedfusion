@@ -84,21 +84,20 @@ const NewsModal = ({ show, handleClose, article }) => {
   };
 
   // Construct shareable link
-  // const title = encodeURIComponent(article?.title);
-  // const categoryUrl = `https://feedfusion.vercel.app/${article?.category || "general"}`;
-  // const sourceUrl = encodeURIComponent(article?.link); // External link (e.g., Punch)
-  
-  // const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${categoryUrl}&quote=${title} - ${categoryUrl} + ${sourceUrl}`;
-  // const twitterShareUrl = `https://twitter.com/intent/tweet?text=${title} - ${categoryUrl} + ${sourceUrl}`;
+  // const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link.replace(/^https?:\/\//, ''))}`;
+
+  const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link)}`;
   
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(metaData.title + " - " + shareUrl + " + " + metaData.url)}`;
 
   const twitterShareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(metaData.title + " - " + shareUrl + " + " + metaData.url)}`;
   
 
+  console.log("Facebook Share URL:", shareUrl);
   console.log("Facebook Share URL:", facebookShareUrl);
   console.log("Twitter Share URL:", twitterShareUrl);
-  
+
+
   
 
   return (
@@ -146,6 +145,7 @@ const NewsModal = ({ show, handleClose, article }) => {
   </a>
 </div>
 
+        
       </Modal.Body>
     </Modal>
   );
