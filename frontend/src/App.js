@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import PreviewPage from "./components/PreviewPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -41,7 +40,6 @@ const App = () => {
     <>
       <Navbar onSearch={handleSearch} />
       <Routes>
-        <Route path="/preview" element={<PreviewPage />} />
         <Route path="/" element={<Home searchQuery={searchQuery} />} />
         <Route path="/sports" element={<Sports searchQuery={searchQuery} />} />
         <Route path="/technology" element={<Technology searchQuery={searchQuery} />} />

@@ -70,20 +70,11 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // Construct shareable link in the correct format
-  // const baseShareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${article?.link.replace(/^https?:\/\//, '')}`;
-
-  // Use the original article link directly
-  // const baseShareUrl = encodeURIComponent(article?.link || "");
-  // const tweetText = encodeURIComponent(article?.title || "Check this out!");
-  // const hashtags = encodeURIComponent(article?.category ? `${article.category}` : "");
-
-  const previewUrl = `https://feedfusion.vercel.app/preview?url=${encodeURIComponent(article?.link)}`;
-  const baseShareUrl = `https://feedfusion.vercel.app/article?url=${encodeURIComponent(article?.link || "")}`;
-  const tweetText = encodeURIComponent(article?.title || "Check this out!");
-  const hashtags = encodeURIComponent(article?.category ? `#${article.category}` : "");
-
-
+  // Construct shareable link with Open Graph metadata
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const shareUrl = backendUrl
+    ? `${backendUrl}/api/news/article?title=${encodeURIComponent(article?.title || "")}&link=${encodeURIComponent(article?.link || "")}&description=${encodeURIComponent(article?.description || "")}&image=${encodeURIComponent(article?.image || "")}`
+    : "";
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -107,40 +98,9 @@ const NewsModal = ({ show, handleClose, article }) => {
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
         {/* Social Media Share Buttons */}
-        {/* <div className="news-social-media mt-3 d-flex gap-2">
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${baseShareUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline-primary"
-          >
-            Share on Facebook
-          </a>
-
-          <a
-            href={`https://x.com/intent/tweet?url=${baseShareUrl}&text=${tweetText}&hashtags=${hashtags}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline-info"
-          >
-            Share on X (Twitter)
-          </a>
-        </div> */}
-
-
-        {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3 d-flex gap-2">
-          {/* <a
-    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(baseShareUrl)}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="btn btn-outline-primary"
-  >
-    Share on Facebook
-  </a> */}
-
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(previewUrl)}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-primary"
@@ -149,7 +109,7 @@ const NewsModal = ({ show, handleClose, article }) => {
           </a>
 
           <a
-            href={`https://x.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${tweetText}&hashtags=${hashtags}`}
+            href={`https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-info"
@@ -157,8 +117,6 @@ const NewsModal = ({ show, handleClose, article }) => {
             Share on X (Twitter)
           </a>
         </div>
-
-
       </Modal.Body>
     </Modal>
   );
