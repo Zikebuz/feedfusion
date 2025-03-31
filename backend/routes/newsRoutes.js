@@ -76,37 +76,4 @@ router.get("/:category", async (req, res) => {
   }
 });
 
-// Route: Serve dynamic OG metadata for Facebook sharing
-router.get("/article", (req, res) => {
-  const { title, link, description, image } = req.query;
-
-  if (!title || !link) {
-    return res.status(400).send("Missing required parameters");
-  }
-
-  // Generate an HTML page with the correct Open Graph metadata
-  const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta property="og:title" content="${title}" />
-      <meta property="og:url" content="${link}" />
-      <meta property="og:description" content="${description ? description.slice(0, 150) : ''}" />
-      <meta property="og:image" content="${image || 'https://feedfusion.vercel.app/default-image.jpg'}" />
-      <meta property="og:type" content="article" />
-      <title>${title}</title>
-      <meta http-equiv="refresh" content="0; url=${link}" />
-    </head>
-    <body>
-      <p>Redirecting to <a href="${link}">${link}</a>...</p>
-    </body>
-    </html>
-  `;
-
-  res.send(html);
-});
-
-
 module.exports = router;
