@@ -94,8 +94,7 @@ const NewsModal = ({ show, handleClose, article }) => {
   
 
   console.log("Facebook Share URL:", shareUrl);
-  console.log("Facebook Share URL:", facebookShareUrl);
-  console.log("Twitter Share URL:", twitterShareUrl);
+  
 
 
   
@@ -136,13 +135,14 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   {/* Twitter (X) Share */}
   <a
-    href={twitterShareUrl}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="btn btn-outline-info"
-  >
-    Share on X (Twitter)
-  </a>
+  href={`https://x.com/intent/tweet?text=${encodeURIComponent(metaData.title + " - " + sourceUrl)}&url=${encodeURIComponent(shareUrl)}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="btn btn-outline-info"
+>
+  Share on X (Twitter)
+</a>
+
 </div>
 
         
