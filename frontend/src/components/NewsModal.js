@@ -84,7 +84,11 @@ const NewsModal = ({ show, handleClose, article }) => {
   };
 
   // Construct shareable link
-  const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link.replace(/^https?:\/\//, ''))}`;
+  // const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link.replace(/^https?:\/\//, ''))}`;
+
+  const sanitizedUrl = article?.link.replace(/^https?:\/\//, '');
+const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${sanitizedUrl}`;
+
   
   console.log("Facebook Share URL:", shareUrl);
 

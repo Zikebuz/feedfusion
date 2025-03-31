@@ -23,7 +23,7 @@ const fetchRSS = async (url) => {
 
     return result.rss.channel[0].item.map((item) => {
       let categoryRaw = item.category?.[0]?.trim().toLowerCase() || "";
-      let category = ALLOWED_CATEGORIES.find(label => categoryRaw.includes(label)) || "";
+      let category = ALLOWED_CATEGORIES.find(label => categoryRaw.includes(label)) || "general"; // 🔄 Default to "general"
 
       return {
         title: item.title[0],
@@ -86,7 +86,14 @@ router.get("/meta", async (req, res) => {
   }
 
   try {
-    const response = await axios.get(url);
+    // Add headers to mimic a real browser request
+    const response = await axios.get(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+      },
+    });
+
     const dom = new JSDOM(response.data);
     const metaTags = dom.window.document.querySelectorAll("meta");
 
