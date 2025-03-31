@@ -71,7 +71,8 @@ const NewsModal = ({ show, handleClose, article }) => {
   };
 
   // Construct shareable link with Open Graph metadata
-  const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link.replace(/^https?:\/\//, ''))}`;
+  // const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link.replace(/^https?:\/\//, ''))}`;
+  const shareUrl = `https://feedfusion.vercel.app/?article=${encodeURIComponent(article?.title || "").replace(/\s+/g, "-")}`;
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -96,14 +97,10 @@ const NewsModal = ({ show, handleClose, article }) => {
 
         {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3 d-flex gap-2">
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline-primary"
-          >
-            Share on Facebook
-          </a>
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+   target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary">
+   Share on Facebook
+</a>
 
           <a
             href={`https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
