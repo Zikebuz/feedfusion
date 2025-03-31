@@ -84,11 +84,21 @@ const NewsModal = ({ show, handleClose, article }) => {
   };
 
   // Construct shareable link
-  // const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link.replace(/^https?:\/\//, ''))}`;
-
-  const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link)}`;
+  // const title = encodeURIComponent(article?.title);
+  // const categoryUrl = `https://feedfusion.vercel.app/${article?.category || "general"}`;
+  // const sourceUrl = encodeURIComponent(article?.link); // External link (e.g., Punch)
   
-  console.log("Facebook Share URL:", shareUrl);
+  // const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${categoryUrl}&quote=${title} - ${categoryUrl} + ${sourceUrl}`;
+  // const twitterShareUrl = `https://twitter.com/intent/tweet?text=${title} - ${categoryUrl} + ${sourceUrl}`;
+  
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(metaData.title + " - " + shareUrl + " + " + metaData.url)}`;
+
+  const twitterShareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(metaData.title + " - " + shareUrl + " + " + metaData.url)}`;
+  
+
+  console.log("Facebook Share URL:", facebookShareUrl);
+  console.log("Twitter Share URL:", twitterShareUrl);
+  
   
 
   return (
@@ -113,25 +123,29 @@ const NewsModal = ({ show, handleClose, article }) => {
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
         {/* Social Media Share Buttons */}
-        <div className="news-social-media mt-3 d-flex gap-2">
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline-primary"
-          >
-            Share on Facebook
-          </a>
 
-          <a
-            href={`https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(metaData.title)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline-info"
-          >
-            Share on X (Twitter)
-          </a>
-        </div>
+<div className="news-social-media mt-3 d-flex gap-2">
+  {/* Facebook Share */}
+  <a
+    href={facebookShareUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn btn-outline-primary"
+  >
+    Share on Facebook
+  </a>
+
+  {/* Twitter (X) Share */}
+  <a
+    href={twitterShareUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn btn-outline-info"
+  >
+    Share on X (Twitter)
+  </a>
+</div>
+
       </Modal.Body>
     </Modal>
   );
