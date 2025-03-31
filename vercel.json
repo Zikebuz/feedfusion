@@ -1,0 +1,10 @@
+{
+    "redirects": [
+      {
+        "source": "/news",
+        "destination": "/api/news",
+        "statusCode": 307
+      }
+    ]
+  }
+  
