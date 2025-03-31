@@ -1,16 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { fetchMetaData } from "../utils/fetchRSS";
 import '../styles/style.css';
 
 const NewsModal = ({ show, handleClose, article }) => {
   const [fullContent, setFullContent] = useState("Loading full news content...");
+  const [metaData, setMetaData] = useState({
+    title: "",
+    description: "",
+    image: "",
+    url: "",
+  });
 
   useEffect(() => {
     if (show && article?.link) {
       fetchFullArticle(article.link);
+      fetchMetaDataDetails(article.link);
     }
   }, [show, article]);
 
+  // Fetch Open Graph metadata for the article
+  const fetchMetaDataDetails = async (newsUrl) => {
+    const data = await fetchMetaData(newsUrl);
+    if (data) {
+      setMetaData({
+        title: data.title || article?.title || "News Article",
+        description: data.description || "",
+        image: data.image || article?.image || "",
+        url: data.url || article?.link || "",
+      });
+    }
+  };
+
+  // Fetch full article content
   const fetchFullArticle = async (articleUrl) => {
     try {
       const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -20,10 +42,7 @@ const NewsModal = ({ show, handleClose, article }) => {
 
       const proxyUrl = `${backendUrl}/api/proxy?url=${encodeURIComponent(articleUrl)}`;
       const response = await fetch(proxyUrl);
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch article");
-      }
+      if (!response.ok) throw new Error("Failed to fetch article");
 
       const text = await response.text();
       const parser = new DOMParser();
@@ -42,7 +61,6 @@ const NewsModal = ({ show, handleClose, article }) => {
         "Kindly share this story:",
         "AFP",
       ];
-
       paragraphs = paragraphs.filter(
         (p) => !unwantedPhrases.some((phrase) => p.textContent.includes(phrase))
       );
@@ -50,6 +68,7 @@ const NewsModal = ({ show, handleClose, article }) => {
       if (paragraphs.length > 0 && paragraphs[paragraphs.length - 1].textContent.trim() === "") {
         paragraphs.pop();
       }
+
       if (paragraphs.length > 0) {
         paragraphs.pop();
       }
@@ -64,22 +83,20 @@ const NewsModal = ({ show, handleClose, article }) => {
     }
   };
 
-  // Construct shareable link with frontend URL
-  const frontendUrl = "https://feedfusion.vercel.app";
-  const shareUrl = article?.link
-    ? `${frontendUrl}/article?title=${encodeURIComponent(article?.title || "")}&link=${encodeURIComponent(article?.link || "")}&description=${encodeURIComponent(article?.description || "")}&image=${encodeURIComponent(article?.image || "")}`
-    : "";
+  // Construct shareable link
+  const shareUrl = `https://feedfusion.vercel.app/${article?.category || "general"}/${encodeURIComponent(article?.link.replace(/^https?:\/\//, ''))}`;
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>{article?.title || "News Article"}</Modal.Title>
+        <Modal.Title>{metaData.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {article?.image && (
+        {/* Article Image */}
+        {metaData.image && (
           <div className="text-center">
             <img
-              src={article.image}
+              src={metaData.image}
               className="img-fluid mb-3"
               style={{ borderRadius: "10px" }}
               alt="News"
@@ -87,8 +104,10 @@ const NewsModal = ({ show, handleClose, article }) => {
           </div>
         )}
 
+        {/* Full News Content */}
         <div dangerouslySetInnerHTML={{ __html: fullContent }}></div>
 
+        {/* Social Media Share Buttons */}
         <div className="news-social-media mt-3 d-flex gap-2">
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
@@ -100,7 +119,7 @@ const NewsModal = ({ show, handleClose, article }) => {
           </a>
 
           <a
-            href={`https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
+            href={`https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(metaData.title)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-info"
