@@ -88,8 +88,8 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   // const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(metaData.url)}`;
 
-  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(metaData.url)}&quote=${encodeURIComponent(
-    `Read more on FeedFusion: https://feedfusion.vercel.app/${article?.category || "general"}`
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+    `https://feedfusion.vercel.app/news?source=${encodeURIComponent(metaData.url)}`
   )}`;
   
 
