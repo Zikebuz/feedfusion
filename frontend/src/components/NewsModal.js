@@ -72,7 +72,7 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   // Construct shareable link in the correct format
   const baseShareUrl = article?.link; // Use original news link
-  const categoryTag = article?.category 
+  // const categoryTag = article?.category 
 
 
   return (
@@ -110,7 +110,7 @@ const NewsModal = ({ show, handleClose, article }) => {
 
 
 <a
-  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")} ${categoryTag}`}
+  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(baseShareUrl)}&text=${encodeURIComponent(article?.title || "")}`}
   target="_blank"
   rel="noopener noreferrer"
   className="btn btn-outline-info"
