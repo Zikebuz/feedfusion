@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import NewsProxy from "./components/NewsProxy";
 import Home from "./pages/Home";
 import Sports from "./pages/Sports";
 import Technology from "./pages/Technology";
@@ -41,7 +40,6 @@ const App = () => {
     <>
       <Navbar onSearch={handleSearch} />
       <Routes>
-        <Route path="/news" element={<NewsProxy />} />
         <Route path="/" element={<Home searchQuery={searchQuery} />} />
         <Route path="/sports" element={<Sports searchQuery={searchQuery} />} />
         <Route path="/technology" element={<Technology searchQuery={searchQuery} />} />

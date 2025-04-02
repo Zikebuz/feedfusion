@@ -1,7 +1,6 @@
 const express = require("express");
 const axios = require("axios");
 const xml2js = require("xml2js");
-const { JSDOM } = require("jsdom"); // Used for parsing HTML
 
 const router = express.Router();
 
@@ -23,7 +22,7 @@ const fetchRSS = async (url) => {
 
     return result.rss.channel[0].item.map((item) => {
       let categoryRaw = item.category?.[0]?.trim().toLowerCase() || "";
-      let category = ALLOWED_CATEGORIES.find(label => categoryRaw.includes(label)) || "general"; // 🔄 Default to "general"
+      let category = ALLOWED_CATEGORIES.find(label => categoryRaw.includes(label)) || "";
 
       return {
         title: item.title[0],
@@ -74,53 +73,6 @@ router.get("/:category", async (req, res) => {
   } catch (error) {
     console.error(`Error fetching ${category} news:`, error);
     res.status(500).json({ error: `Failed to fetch ${category} news` });
-  }
-});
-
-// Route: Fetch Open Graph metadata for a given news URL
-router.get("/meta", async (req, res) => {
-  const { url } = req.query;
-
-  if (!url) {
-    return res.status(400).json({ error: "URL parameter is required" });
-  }
-
-  try {
-    // Use headers to mimic a real browser request
-    const response = await axios.get(url, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-      },
-    });
-
-    const dom = new JSDOM(response.data);
-    const metaTags = dom.window.document.querySelectorAll("meta");
-
-    let metaData = {
-      title: "",
-      description: "",
-      image: "",
-      url: url,
-    };
-
-    metaTags.forEach((tag) => {
-      if (tag.getAttribute("property") === "og:title") {
-        metaData.title = tag.getAttribute("content");
-      } else if (tag.getAttribute("property") === "og:description") {
-        metaData.description = tag.getAttribute("content");
-      } else if (tag.getAttribute("property") === "og:image") {
-        metaData.image = tag.getAttribute("content");
-      }
-    });
-
-    // ✅ Append full FeedFusion share URL for correct previews
-    metaData.url = `https://feedfusion.vercel.app/${req.query.category || "general"}/${encodeURIComponent(url)}`;
-
-    res.json(metaData);
-  } catch (error) {
-    console.error("Error fetching Open Graph metadata:", error);
-    res.status(500).json({ error: "Failed to fetch metadata" });
   }
 });
 
