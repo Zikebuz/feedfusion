@@ -72,7 +72,7 @@ const NewsModal = ({ show, handleClose, article }) => {
 
   // Construct shareable link in the correct format
   const baseShareUrl = article?.link; // Use original news link
-  const categoryTag = article?.category ? `#${article.category}` : "";
+  const categoryTag = article?.category 
 
 
   return (
